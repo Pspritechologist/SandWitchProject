@@ -11,5 +11,39 @@ config_version=5
 [application]
 
 config/name="SandWitchProject"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="uid://ndjolkiwjpao"
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_call_argument=1
+gdscript/warnings/empty_file=0
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/subwindows/embed_subwindows=false
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/vsync/vsync_mode=0
+
+[physics]
+
+common/physics_ticks_per_second=90
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+renderer/rendering_method="mobile"
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
+environment/screen_space_reflection/roughness_quality=2
+environment/subsurface_scattering/subsurface_scattering_quality=2
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
