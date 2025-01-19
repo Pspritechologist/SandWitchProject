@@ -1,0 +1,49 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Editor",
+            "command": "godot",
+            "runOptions": {
+                "runOn": "folderOpen",
+                "instanceLimit": 1,
+            },
+            "type": "shell",
+            "args": [
+                "${workspaceFolder}/project.godot",
+                // "--rendering-driver opengl3",
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "clear": true,
+                "panel": "dedicated",
+                "revealProblems": "onProblem"
+            },
+            "isBackground": true,
+            "promptOnClose": true,
+            "icon": {
+                "color": "terminal.ansiBlue",
+                "id": "edit"
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Start Godot Language Server",
+            "type": "shell",
+            "command": "godot",
+            "args": [
+                "${workspaceFolder}/project.godot",
+                "--headless",
+                "--debug-server",
+                "tcp://127.0.0.1:6007"
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new",
+                "clear": true,
+            },
+        },
+    ]
+}

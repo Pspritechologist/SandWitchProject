@@ -1,0 +1,79 @@
+{
+    "editor.renderWhitespace": "boundary",
+    "editor.trimAutoWhitespace": false,
+    "editor.insertSpaces": false,
+    "better-comments.tags": [ // Default comment colour is #279735
+        {
+            "tag": "#", //# Godot specific, used for in-code docs.
+            "color": "#7393c2",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "!", //! THIS IS IMPORTANT
+            "color": "#d92b27",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+          },
+          {
+            "tag": "wtf", //WTF: THIS IS IMPORTANT
+            "color": "#d92b27",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+          },
+          {
+            "tag": "?", //? Explaining something or providing context- generally more formal.
+            "color": "#81b1e0",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+          },
+          {
+            "tag": "info", //INFO: Explaining something or providing context- generally more formal.
+            "color": "#81b1e0",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+          },
+          {
+            "tag": "--", //-- Strikethrough comment, funny.
+            "color": "#528b5a",
+            "strikethrough": true,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+          },
+          {
+            "tag": "todo", //TODO: Explain todo.
+            "color": "#be9a66",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+          },
+          {
+            "tag": "fixme", //FIXME: This needs to get fixed at some point.
+            "color": "#be9a66",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+          }
+    ]
+}
