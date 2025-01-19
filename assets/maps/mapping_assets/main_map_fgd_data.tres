@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FuncGodotFGDFile" load_steps=4 format=3 uid="uid://d1sr7b71dxvma"]
+
+[ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_yhapc"]
+[ext_resource type="Resource" uid="uid://db3gda7kmuv7" path="res://assets/maps/mapping_assets/entities/testing_entities/testing_entities.tres" id="2_kec0c"]
+[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="3_cftbi"]
+
+[resource]
+script = ExtResource("3_cftbi")
+export_file = false
+model_key_word_supported = true
+fgd_name = "pci"
+base_fgd_files = Array[Resource]([ExtResource("1_yhapc"), ExtResource("2_kec0c")])
+entity_definitions = Array[Resource]([])

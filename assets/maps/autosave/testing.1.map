@@ -1,0 +1,16 @@
+// Game: Pengu Charles Island
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" ""
+// brush 0
+{
+( -1872 1568 16 ) ( -1872 -1600 16 ) ( -1872 -1600 -16 ) pbr/military-panel -1568 0 0 1 1
+( -1872 -1600 16 ) ( 1456 -1600 16 ) ( 1456 -1600 -16 ) pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 -16 ) ( 1456 1568 -16 ) ( -1872 1568 -16 ) pbr/military-panel 1872 1568 0 1 1
+( -1872 1568 16 ) ( 1456 1568 16 ) ( 1456 -1600 16 ) pbr/military-panel 1872 1568 0 1 1
+( 1456 1568 -16 ) ( 1456 1568 16 ) ( -1872 1568 16 ) pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 16 ) ( 1456 1568 16 ) ( 1456 1568 -16 ) pbr/military-panel -1568 0 0 1 1
+}
+}

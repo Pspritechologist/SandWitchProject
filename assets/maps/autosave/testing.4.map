@@ -1,0 +1,116 @@
+// Game: Pengu Charles Island
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "assets/textures/mapping/pbr;assets/textures/stupid_shit"
+// brush 0
+{
+( -1872 1568 16 ) ( -1872 -1600 16 ) ( -1872 -1600 -16 ) mapping/pbr/military-panel -1568 0 0 1 1
+( -1872 -1600 16 ) ( 1456 -1600 16 ) ( 1456 -1600 -16 ) mapping/pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 -16 ) ( 1456 1568 -16 ) ( -1872 1568 -16 ) mapping/pbr/military-panel 1872 1568 0 1 1
+( -1872 1568 16 ) ( 1456 1568 16 ) ( 1456 -1600 16 ) mapping/pbr/military-panel 1872 1568 0 1 1
+( 1456 1568 -16 ) ( 1456 1568 16 ) ( -1872 1568 16 ) mapping/pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 16 ) ( 1456 1568 16 ) ( 1456 1568 -16 ) mapping/pbr/military-panel -1568 0 0 1 1
+}
+// brush 1
+{
+( 208 16 81.9512195122614 ) ( 240 112 16 ) ( 224 96 64 ) stupid_shit/rock_texture 0 0 0 1 1
+( 208 -96 96 ) ( 240 -128 16 ) ( 208 16 81.9512195122614 ) stupid_shit/rock_texture 0 0 0 1 1
+( 240 -128 16 ) ( 240 112 16 ) ( 208 16 81.9512195122614 ) stupid_shit/rock_texture 0 0 0 1 1
+( 208 -96 96 ) ( 275.1999999999862 -182.4000000000051 48 ) ( 240 -128 16 ) stupid_shit/rock_texture -247.11053 369.12708 64.70668 0.41949126 0.2873489
+( 208 -96 96 ) ( 288 -120 128 ) ( 275.1999999999862 -182.4000000000051 48 ) stupid_shit/rock_texture -107.81202 295.23352 -38.639038 0.45599762 0.38594493
+( 208 16 81.9512195122614 ) ( 288 -120 128 ) ( 208 -96 96 ) stupid_shit/rock_texture -218.11717 -244.27646 -78.78781 0.39889166 0.38770184
+( 224 96 64 ) ( 352 112 96 ) ( 208 16 81.9512195122614 ) stupid_shit/rock_texture 0 0 0 1 1
+( 208 16 81.9512195122614 ) ( 352 112 96 ) ( 288 -120 128 ) stupid_shit/rock_texture 0 0 0 1 1
+( 240 112 16 ) ( 352 112 96 ) ( 224 96 64 ) stupid_shit/rock_texture 0 0 0 1 1
+( 275.1999999999862 -182.4000000000051 48 ) ( 352 -128 16 ) ( 240 -128 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( 352 -128 16 ) ( 352 112 16 ) ( 240 112 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( 352 112 16 ) ( 352 112 96 ) ( 240 112 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( 288 -120 128 ) ( 368 -144 96 ) ( 275.1999999999862 -182.4000000000051 48 ) stupid_shit/rock_texture 251.78711 48.772766 287.57043 0.50190806 0.34004202
+( 352 112 96 ) ( 368 -144 96 ) ( 288 -120 128 ) stupid_shit/rock_texture 0 0 0 1 1
+( 275.1999999999862 -182.4000000000051 48 ) ( 368 -144 96 ) ( 352 -128 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( 352 -128 16 ) ( 368 -144 96 ) ( 352 112 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( 352 112 16 ) ( 368 -144 96 ) ( 352 112 96 ) stupid_shit/rock_texture 0 0 0 1 1
+}
+// brush 2
+{
+( -1312 0 128 ) ( -1344 -432 128 ) ( -1344 -432 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( -1344 -432 128 ) ( -1248 -432 128 ) ( -1248 -432 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( -1248 -432 16 ) ( -1216 0 16 ) ( -1312 0 16 ) stupid_shit/rock_texture 0 0 0 1 1
+( -1312 0 128 ) ( -1216 0 128 ) ( -1248 -432 128 ) stupid_shit/rock_texture 0 0 0 1 1
+( -1216 0 16 ) ( -1216 0 128 ) ( -1312 0 128 ) stupid_shit/rock_texture 0 0 0 1 1
+( -1248 -432 128 ) ( -1216 0 128 ) ( -1216 0 16 ) stupid_shit/rock_texture 0 0 0 1 1
+}
+}
+// entity 1
+{
+"classname" "func_geo"
+// brush 0
+{
+( -496 -176 96 ) ( -496 -175 96 ) ( -496 -176 97 ) __TB_empty 0 0 0 1 1
+( -496 -176 96 ) ( -496 -176 97 ) ( -495 -176 96 ) __TB_empty 0 0 0 1 1
+( -496 -176 96 ) ( -495 -176 96 ) ( -496 -175 96 ) __TB_empty 0 0 0 1 1
+( -272 32 272 ) ( -272 33 272 ) ( -271 32 272 ) __TB_empty 0 0 0 1 1
+( -272 32 272 ) ( -271 32 272 ) ( -272 32 273 ) __TB_empty 0 0 0 1 1
+( -272 32 272 ) ( -272 32 273 ) ( -272 33 272 ) __TB_empty 0 0 0 1 1
+}
+}
+// entity 2
+{
+"classname" "Ball"
+"origin" "-178.343 -13.657 64"
+"angle" "225"
+"bounce" "1"
+"bounce_max" "1"
+"friction" "1"
+"friction_max" "1"
+"initial_velocity" "0 8 0"
+"mass" "5"
+"mass_max" "9"
+}
+// entity 3
+{
+"classname" "Ball"
+"origin" "24 -120 56"
+"initial_velocity" "8 0 0"
+}
+// entity 4
+{
+"classname" "Ball"
+"origin" "24 104 56"
+"angle" "0"
+"initial_velocity" "-8 0 0"
+}
+// entity 5
+{
+"classname" "Ball"
+"origin" "-216 -72 24"
+}
+// entity 6
+{
+"classname" "Ball"
+"origin" "-216 -120 24"
+}
+// entity 7
+{
+"classname" "Ball"
+"origin" "-168 72 168"
+}
+// entity 8
+{
+"classname" "Ball"
+"origin" "-152 -40 168"
+}
+// entity 9
+{
+"classname" "Ball"
+"origin" "-72 -184 168"
+"bounce" "5"
+"bounce_max" "10"
+"friction" "0"
+"friction_max" "0"
+"initial_velocity" "0 50 0"
+"mass" "30"
+"mass_max" "40"
+}

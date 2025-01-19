@@ -1,0 +1,65 @@
+// Game: Pengu Charles Island
+// Format: Standard
+// entity 0
+{
+"classname" "worldspawn"
+"_tb_textures" "assets/textures/mapping/pbr;assets/textures/stupid_shit"
+// brush 0
+{
+( -1872 1568 16 ) ( -1872 -1600 16 ) ( -1872 -1600 -16 ) mapping/pbr/military-panel -1568 0 0 1 1
+( -1872 -1600 16 ) ( 1456 -1600 16 ) ( 1456 -1600 -16 ) mapping/pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 -16 ) ( 1456 1568 -16 ) ( -1872 1568 -16 ) mapping/pbr/military-panel 1872 1568 0 1 1
+( -1872 1568 16 ) ( 1456 1568 16 ) ( 1456 -1600 16 ) mapping/pbr/military-panel 1872 1568 0 1 1
+( 1456 1568 -16 ) ( 1456 1568 16 ) ( -1872 1568 16 ) mapping/pbr/military-panel 1872 0 0 1 1
+( 1456 -1600 16 ) ( 1456 1568 16 ) ( 1456 1568 -16 ) mapping/pbr/military-panel -1568 0 0 1 1
+}
+}
+// entity 1
+{
+"classname" "func_geo"
+// brush 0
+{
+( -480 -176 16 ) ( -480 -175 16 ) ( -480 -176 17 ) __TB_empty 0 0 0 1 1
+( -480 -176 16 ) ( -480 -176 17 ) ( -479 -176 16 ) __TB_empty 0 0 0 1 1
+( -480 -176 16 ) ( -479 -176 16 ) ( -480 -175 16 ) __TB_empty 0 0 0 1 1
+( -256 32 192 ) ( -256 33 192 ) ( -255 32 192 ) __TB_empty 0 0 0 1 1
+( -256 32 192 ) ( -255 32 192 ) ( -256 32 193 ) __TB_empty 0 0 0 1 1
+( -256 32 192 ) ( -256 32 193 ) ( -256 33 192 ) __TB_empty 0 0 0 1 1
+}
+}
+// entity 2
+{
+"classname" "Ball"
+"origin" "-210.343 18.3431 48"
+"angle" "225"
+"bounce" "1"
+"bounce_max" "1"
+"friction" "1"
+"friction_max" "1"
+"initial_velocity" "0 2 0"
+"mass" "5"
+"mass_max" "9"
+}
+// entity 3
+{
+"classname" "Ball"
+"origin" "24 -120 56"
+}
+// entity 4
+{
+"classname" "Ball"
+"origin" "24 104 56"
+"angle" "0"
+"initial_velocity" "0 0 0"
+}
+// entity 5
+{
+"classname" "Ball"
+"origin" "-216 -72 24"
+}
+// entity 6
+{
+"classname" "Ball"
+"origin" "-168 -88 24"
+"angle" "270"
+}

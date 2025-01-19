@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgkqrhw56lpaa"]
+
+[ext_resource type="Script" uid="uid://cfk7vkn404k1i" path="res://assets/maps/mapping_assets/entities/testing_entities/ball.gd" id="1_ngytw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vnkqp"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4wgci"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7ij7e"]
+streams_count = 6
+
+[node name="Ball" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+mass = 12.0
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_ngytw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_vnkqp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4wgci")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+top_level = true
+billboard = 2
+text = "Velocity"
+font_size = 40
+outline_size = 10
+
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
+radius = 0.5
+
+[node name="RigidNoise" type="Node3D" parent="."]
+
+[node name="CollisionNoise" type="AudioStreamPlayer3D" parent="RigidNoise"]
+stream = SubResource("AudioStreamRandomizer_7ij7e")
+volume_db = -2.679
+max_polyphony = 3
