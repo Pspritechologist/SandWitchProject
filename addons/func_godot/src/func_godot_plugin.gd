@@ -36,12 +36,11 @@ func _enter_tree() -> void:
 	map_scene_import_plugin = MapSceneImportPlugin.new()
 	map_scene_post_import_plugin = MapScenePostImportPlugin.new()
 	
-	if Engine.is_editor_hint():
-		add_import_plugin(map_import_plugin)
-		add_import_plugin(palette_import_plugin)
-		add_import_plugin(wad_import_plugin)
-		add_scene_format_importer_plugin(map_scene_import_plugin)
-		add_scene_post_import_plugin(map_scene_post_import_plugin)
+	add_import_plugin(map_import_plugin)
+	add_import_plugin(palette_import_plugin)
+	add_import_plugin(wad_import_plugin)
+	add_scene_format_importer_plugin(map_scene_import_plugin)
+	add_scene_post_import_plugin(map_scene_post_import_plugin)
 	
 	# FuncGodotMap button
 	func_godot_map_control = create_func_godot_map_control()
@@ -54,22 +53,14 @@ func _enter_tree() -> void:
 	
 	add_custom_type("FuncGodotMap", "Node3D", preload("res://addons/func_godot/src/map/func_godot_map.gd"), null)
 
-	# Setup Editor Settings
-	FuncGodotLocalConfig.setup_editor_settings()
-	FuncGodotLocalConfig.cleanup_legacy()
-
-	# Setup Project Settings
-	FuncGodotProjectConfig.setup_project_settings()
-
 func _exit_tree() -> void:
 	remove_custom_type("FuncGodotMap")
-	if Engine.is_editor_hint():
-		remove_import_plugin(map_import_plugin)
-		remove_import_plugin(palette_import_plugin)
-		if wad_import_plugin:
-			remove_import_plugin(wad_import_plugin)
-		remove_scene_format_importer_plugin(map_scene_import_plugin)
-		remove_scene_post_import_plugin(map_scene_post_import_plugin)
+	remove_import_plugin(map_import_plugin)
+	remove_import_plugin(palette_import_plugin)
+	if wad_import_plugin:
+		remove_import_plugin(wad_import_plugin)
+	remove_scene_format_importer_plugin(map_scene_import_plugin)
+	remove_scene_post_import_plugin(map_scene_post_import_plugin)
 		
 	map_import_plugin = null
 	palette_import_plugin = null
@@ -85,13 +76,6 @@ func _exit_tree() -> void:
 		remove_control_from_container(EditorPlugin.CONTAINER_SPATIAL_EDITOR_BOTTOM, func_godot_map_progress_bar)
 		func_godot_map_progress_bar.queue_free()
 		func_godot_map_progress_bar = null
-
-	# Cleanup Editor Settings
-	# FuncGodotLocalConfig.remove_editor_settings()
-
-	# Cleanup Project Settings
-	#INFO: I realized that doing this defeats the purpose of using EditorSettings
-	FuncGodotProjectConfig.remove_project_settings()
 
 ## Create the toolbar controls for [FuncGodotMap] instances in the editor
 func create_func_godot_map_control() -> Control:
@@ -164,7 +148,8 @@ func func_godot_map_unwrap_uv2() -> void:
 		return
 
 	set_func_godot_map_control_disabled(true)
-	edited_object.connect("unwrap_uv2_complete", func_godot_map_build_complete.bind(edited_object))
+	if not edited_object.is_connected("unwrap_uv2_complete", func_godot_map_build_complete):
+		edited_object.connect("unwrap_uv2_complete", func_godot_map_build_complete.bind(edited_object))
 
 	edited_object.unwrap_uv2()
 

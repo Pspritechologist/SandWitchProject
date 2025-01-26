@@ -7,7 +7,7 @@ func _get_extensions( ) -> PackedStringArray:
 
 func _import_scene(path: String, flags: int, options: Dictionary) -> Object:
 	var tree = SceneTree.new()
-	
+
 	var map_node := FuncGodotMap.new()
 	map_node.local_map_file = path
 	map_node.block_until_complete = true
@@ -26,5 +26,5 @@ func _import_scene(path: String, flags: int, options: Dictionary) -> Object:
 	root_node.name = path.get_file().get_basename().to_pascal_case()
 	map_node.replace_by(root_node)
 	map_node.free()
-	
+
 	return root_node

@@ -1,7 +1,10 @@
 @tool
 @icon("res://addons/func_godot/icons/icon_godot_ranger.svg")
-## Local machine map editor settings. Can define global defaults for some FuncGodot properties.
+## Local machine project wide settings. Can define global defaults for some FuncGodot properties.
+## DO NOT CREATE A NEW RESOURCE! This resource works by saving a configuration file to your game's *user://* folder and pulling the properties from that config file rather than this resource.
+## Use the premade `addons/func_godot/func_godot_local_config.tres` instead.
 class_name FuncGodotLocalConfig
+extends Resource
 
 enum PROPERTY {
 	FGD_OUTPUT_FOLDER,
@@ -12,99 +15,128 @@ enum PROPERTY {
 	DEFAULT_INVERSE_SCALE
 }
 
-const BASE_PATH: String = "func_godot/local_config/"
+@export var export_func_godot_settings: bool: set = _save_settings
+@export var reload_func_godot_settings: bool = false :
+	set(value):
+		_load_settings()
 
-const CONFIG_PROPERTIES: Dictionary = {
-	PROPERTY.FGD_OUTPUT_FOLDER: {
+const CONFIG_PROPERTIES: Array[Dictionary] = [
+	{
+		"name": "fgd_output_folder",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_GLOBAL_DIR,
-		"default": "",
+		"func_godot_type": PROPERTY.FGD_OUTPUT_FOLDER
 	},
-	PROPERTY.TRENCHBROOM_GAME_CONFIG_FOLDER: {
+	{
+		"name": "trenchbroom_game_config_folder",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_GLOBAL_DIR,
-		"default": "",
+		"func_godot_type": PROPERTY.TRENCHBROOM_GAME_CONFIG_FOLDER
 	},
-	PROPERTY.NETRADIANT_CUSTOM_GAMEPACKS_FOLDER: {
+	{
+		"name": "netradiant_custom_gamepacks_folder",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_GLOBAL_DIR,
-		"default": "",
+		"func_godot_type": PROPERTY.NETRADIANT_CUSTOM_GAMEPACKS_FOLDER
 	},
-	PROPERTY.MAP_EDITOR_GAME_PATH: {
+	{
+		"name": "map_editor_game_path",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_GLOBAL_DIR,
-		"default": "",
+		"func_godot_type": PROPERTY.MAP_EDITOR_GAME_PATH
 	},
-	PROPERTY.GAME_PATH_MODELS_FOLDER: {
+	{
+		"name": "game_path_models_folder",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_STRING,
-		"hint": PROPERTY_HINT_GLOBAL_DIR,
-		"default": "",
+		"func_godot_type": PROPERTY.GAME_PATH_MODELS_FOLDER
 	},
-	PROPERTY.DEFAULT_INVERSE_SCALE: {
+	{
+		"name": "default_inverse_scale_factor",
 		"usage": PROPERTY_USAGE_EDITOR,
 		"type": TYPE_FLOAT,
-		"hint": PROPERTY_HINT_RANGE,
-		"hint_string": "8.0,64,8.0",
-		"default": 32,
-	},
-}
+		"func_godot_type": PROPERTY.DEFAULT_INVERSE_SCALE
+	}
+]
 
-static func get_setting(property: PROPERTY) -> Variant:
-	return EditorInterface.get_editor_settings().get_setting(_get_path(property)) if Engine.is_editor_hint() else CONFIG_PROPERTIES[property]["default"]
+var settings_dict: Dictionary
+var loaded := false
 
-static func set_setting(property: PROPERTY, value: Variant) -> void:
-	EditorInterface.get_editor_settings().set_setting(_get_path(property), value) if Engine.is_editor_hint() else null
+static func get_setting(name: PROPERTY) -> Variant:
+	var settings = load("res://addons/func_godot/func_godot_local_config.tres")
+	if not settings.loaded: 
+		settings._load_settings()
+	return settings.settings_dict.get(PROPERTY.keys()[name], '') as Variant
+
+func _get_property_list() -> Array:
+	return CONFIG_PROPERTIES.duplicate()
 
 func _get(property: StringName) -> Variant:
-	return get_setting(PROPERTY[property])
+	var config = _get_config_property(property)
+	if config == null and not config is Dictionary: 
+		return null
+	_try_loading()
+	return settings_dict.get(PROPERTY.keys()[config['func_godot_type']], _get_default_value(config['type']))
 
 func _set(property: StringName, value: Variant) -> bool:
-	set_setting(PROPERTY[property], value)
+	var config = _get_config_property(property)
+	if config == null and not config is Dictionary: 
+		return false
+	settings_dict[PROPERTY.keys()[config['func_godot_type']]] = value
 	return true
-
-static func setup_editor_settings() -> void:
-	var edit_setts := EditorInterface.get_editor_settings()
 	
-	for key in CONFIG_PROPERTIES:
-		var prop = CONFIG_PROPERTIES[key]
-		var path = _get_path(key)
-		
-		if not edit_setts.has_setting(path):
-			var info = prop.duplicate()
-			info["name"] = path
-			
-			edit_setts.set(path, prop["default"])
-			edit_setts.add_property_info(info)
+func _get_default_value(type) -> Variant:
+	match type:
+		TYPE_STRING: return ''
+		TYPE_INT: return 0
+		TYPE_FLOAT: return 0.0
+		TYPE_BOOL: return false
+		TYPE_VECTOR2: return Vector2.ZERO
+		TYPE_VECTOR3: return Vector3.ZERO
+		TYPE_ARRAY: return []
+		TYPE_DICTIONARY: return {}
+	push_error("Invalid setting type. Returning null")
+	return null
 
-static func remove_editor_settings() -> void:
-	for prop in CONFIG_PROPERTIES:
-		EditorInterface.get_editor_settings().erase(_get_path(prop))
+func _get_config_property(name: StringName) -> Variant:
+	for config in CONFIG_PROPERTIES:
+		if config['name'] == name: 
+			return config
+	return null
 
-static func _get_path(property: PROPERTY) -> String:
-	return BASE_PATH + PROPERTY.keys()[property].to_lower()
-
-# Legacy compatibility
-
-static func cleanup_legacy() -> void:
-	var path = _get_legacy_path()
+func _load_settings() -> void:
+	loaded = true
+	var path = _get_path()
 	if not FileAccess.file_exists(path):
 		return
-	
-	# Set the EditorSettings based on the contents of the json file.
-	var settings := FileAccess.get_file_as_string(path)
-	if settings:
-		var settings_dict = JSON.parse_string(settings)
-		for key in settings_dict:
-			set_setting(PROPERTY[key], settings_dict[key])
-	
-	DirAccess.remove_absolute(path)
+	var settings = FileAccess.get_file_as_string(path)
+	settings_dict = {}
+	if not settings or settings.is_empty():
+		return
+	settings = JSON.parse_string(settings)
+	for key in settings.keys():
+		settings_dict[key] = settings[key]
+	notify_property_list_changed()
 
-static func _get_legacy_path() -> String:
+func _try_loading() -> void:
+	if not loaded: 
+		_load_settings()
+
+func _save_settings(_s = null) -> void:
+	if settings_dict.size() == 0: 
+		return
+	var path = _get_path()
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	var json = JSON.stringify(settings_dict)
+	file.store_line(json)
+	loaded = false
+	print("Saved settings to ", path)
+
+func _get_path() -> String:
 	var application_name: String = ProjectSettings.get('application/config/name')
 	application_name = application_name.replace(" ", "_")
 	return 'user://' + application_name  + '_FuncGodotConfig.json'
