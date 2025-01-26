@@ -1,15 +1,15 @@
 extends CharacterBody3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export var speed = 5.0
+@export var jump_velocity = 4.5
 
-@export_category("Inputs")
-@export var mouse_sensitivity: float = 100
-@export var move_foward: String = "fowards"
-@export var move_backward: String = "backwards"
-@export var move_left: String = "left"
-@export var move_right: String = "right"
-@export var jump: String = "jump"
+@export_subgroup("Inputs", "input")
+@export var input_mouse_sensitivity := 100
+@export var input_move_foward := "fowards"
+@export var input_move_backward := "backwards"
+@export var input_move_left := "left"
+@export var input_move_right := "right"
+@export var input_jump := "jump"
 
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
@@ -17,27 +17,33 @@ const JUMP_VELOCITY = 4.5
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
 	
-	# Handle jump.
-	if Input.is_action_just_pressed(jump) and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	# Handle input_jump.
+	if Input.is_action_just_pressed(input_jump) and is_on_floor():
+		velocity.y = jump_velocity
 		
 	
-	var input_dir := Input.get_vector(move_left, move_right, move_foward, move_backward)
+	var input_dir := Input.get_vector(input_move_left, input_move_right, input_move_foward, input_move_backward)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
+	
+	if Input.is_action_just_pressed("pause"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	move_and_slide()
 	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		event = event as InputEventMouseMotion
-		var motion = event.relative * (0.001 * mouse_sensitivity)
+		var mouse_event := event as InputEventMouseMotion
+		var motion := mouse_event.relative * (0.001 * input_mouse_sensitivity)
 		rotate_y(-deg_to_rad(motion.x))
 		head.rotate_x(-deg_to_rad(motion.y))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))

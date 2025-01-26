@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ndjolkiwjpao"]
+[gd_scene load_steps=7 format=3 uid="uid://ndjolkiwjpao"]
 
 [ext_resource type="Script" uid="uid://ccway715frrqr" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://character_temp.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://character.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://76hvc2tcw2pm" path="res://assets/maps/swp_jungle.map" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -16,16 +17,6 @@ sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
-size = Vector3(5, 0.1, 5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
-size = Vector3(5, 0.1, 5)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_1bvp3"]
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ig7tw")
 
@@ -36,29 +27,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h2yge")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_ig7tw")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("BoxMesh_0xm2m")
-
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.936251, 0)
-script = ExtResource("2_0xm2m")
-
-[node name="Head" type="Node3D" parent="CharacterBody3D"]
-unique_name_in_owner = true
-
-[node name="Camera" type="Camera3D" parent="CharacterBody3D/Head"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.491393, -0.171633)
-fov = 80.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_h2yge")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_1bvp3")
+[node name="SwpJungle" parent="." instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2062, -11.7037, 0)
