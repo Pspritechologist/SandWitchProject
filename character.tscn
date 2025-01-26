@@ -1,14 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5odt3mvxcsai"]
+[gd_scene load_steps=9 format=3 uid="uid://b5odt3mvxcsai"]
 
 [ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://character_temp.gd" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://cds27r3l7mp4l" path="res://crouch_manager.gd" id="2_pjt0s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
+height = 1.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1bvp3"]
+height = 1.5
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[sub_resource type="BoxShape3D" id="BoxShape3D_glpr6"]
+size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pjt0s"]
+size = Vector3(0.9, 0.5, 0.9)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjt0s"]
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pjt0s"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("crouch_manager")]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_glpr6")
+crouch_manager = NodePath("CrouchManager")
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -27,8 +43,38 @@ text = "@_@"
 font_size = 650
 outline_size = 120
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Upper" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("CapsuleShape3D_h2yge")
+debug_color = Color(0, 0.595, 0.7, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Upper" type="MeshInstance3D" parent="Upper"]
 mesh = SubResource("CapsuleMesh_1bvp3")
+skeleton = NodePath("../..")
+
+[node name="Lower2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_glpr6")
+debug_color = Color(0, 0.595, 0.7, 1)
+
+[node name="Lower" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+shape = SubResource("BoxShape3D_pjt0s")
+debug_color = Color(0, 0.595, 0.7, 1)
+
+[node name="Lower" type="MeshInstance3D" parent="Lower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_pjt0s")
+skeleton = NodePath("../../Upper/Upper")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Lower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_pjt0s")
+target_position = Vector3(0, 0.25, 0)
+debug_shape_custom_color = Color(1, 0, 1, 1)
+
+[node name="CrouchManager" type="Node" parent="." node_paths=PackedStringArray("lower_collision", "lower_mesh", "cast")]
+script = ExtResource("2_pjt0s")
+lower_collision = NodePath("../Lower")
+lower_mesh = NodePath("../Lower/Lower")
+cast = NodePath("../Lower/ShapeCast3D")

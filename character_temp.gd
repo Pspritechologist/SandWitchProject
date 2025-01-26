@@ -1,44 +1,60 @@
 extends CharacterBody3D
 
-@export var speed := 5.0
+@export var accel := 10.0
+@export var max_speed := 5.0
+@export var sprint_accel_mult := 1.5
+@export var sprint_max_speed_mult := 1.5
 @export var jump_velocity := 4.5
+@export var jump_sprint_velocity_mult := 1.5
+@export var jump_speed_boost := 2.0
+@export var jump_sprint_speed_boost := 2.0
+@export var air_control := 0.1
 
-@export_subgroup("Inputs", "input")
+@export_group("Inputs", "input")
 @export var input_mouse_sensitivity := 100
-@export var input_move_foward := "fowards"
+@export var input_move_forward := "forwards"
 @export var input_move_backward := "backwards"
 @export var input_move_left := "left"
 @export var input_move_right := "right"
 @export var input_jump := "jump"
+@export var input_sprint := "sprint"
+@export var input_pause := "pause"
+
+@export var crouch_manager: CrouchManager
 
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
 
+
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
-	
-	# Handle input_jump.
-	if Input.is_action_just_pressed(input_jump) and is_on_floor():
-		velocity.y = jump_velocity
-		
-	
-	var input_dir := Input.get_vector(input_move_left, input_move_right, input_move_foward, input_move_backward)
+
+	var input_dir := Input.get_vector(input_move_left, input_move_right, input_move_forward, input_move_backward)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var is_sprinting := Input.is_action_pressed(input_sprint) and not (crouch_manager and crouch_manager.actually_crouching)
+	var real_accel := (accel * sprint_accel_mult if is_sprinting else accel) * (1.0 if is_on_floor() else air_control) * delta
+	var real_max_speed := max_speed * sprint_max_speed_mult if is_sprinting else max_speed
+
+	if Input.is_action_just_pressed(input_jump) and is_on_floor():
+		velocity.y = jump_velocity * (jump_sprint_velocity_mult if is_sprinting else 1.0)
+		velocity.x += direction.x * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
+		velocity.z += direction.z * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
+
 	if direction:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
+		velocity.x = lerp(velocity.x, direction.x * real_max_speed, real_accel)
+		velocity.z = lerp(velocity.z, direction.z * real_max_speed, real_accel)
 	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
-	
-	if Input.is_action_just_pressed("pause"):
+		velocity.x = lerp(velocity.x, 0.0, real_accel)
+		velocity.z = lerp(velocity.z, 0.0, real_accel)
+
+	if Input.is_action_just_pressed(input_pause):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
+
 	move_and_slide()
-	
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -47,4 +63,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-deg_to_rad(motion.x))
 		head.rotate_x(-deg_to_rad(motion.y))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
-	

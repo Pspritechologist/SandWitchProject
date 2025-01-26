@@ -28,6 +28,7 @@ shadow_enabled = true
 environment = SubResource("Environment_h2yge")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_0xm2m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="SwpJungle" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2062, -11.7037, 0)
