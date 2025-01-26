@@ -3,7 +3,7 @@
 		"aaron-bond.better-comments",
 		"tamasfe.even-better-toml",
 		"alfish.godot-files",
-		"redmser.godot-hover-docs",
 		"geequlim.godot-tools",
+		"editorconfig.editorconfig",
 	]
 }
