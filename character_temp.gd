@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-@export var speed = 5.0
-@export var jump_velocity = 4.5
+@export var speed := 5.0
+@export var jump_velocity := 4.5
 
 @export_subgroup("Inputs", "input")
 @export var input_mouse_sensitivity := 100
