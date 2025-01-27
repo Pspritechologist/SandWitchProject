@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ndjolkiwjpao"]
+[gd_scene load_steps=12 format=3 uid="uid://ndjolkiwjpao"]
 
 [ext_resource type="Script" uid="uid://ccway715frrqr" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://character.tscn" id="2_0xm2m"]
@@ -17,6 +17,18 @@ sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h2yge"]
+rough = true
+bounce = 0.03
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bvp3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h2yge"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_1bvp3"]
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ig7tw")
 
@@ -29,6 +41,72 @@ environment = SubResource("Environment_h2yge")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_0xm2m")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
+accel = 25.0
 
 [node name="SwpJungle" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2062, -11.7037, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.206, -11.425, 0)
+
+[node name="Box" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.44279, 0.922358, 2.30784)
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box"]
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box"]
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="Box2" type="RigidBody3D" parent="."]
+transform = Transform3D(0.853887, 0, 0.520458, 0, 1, 0, -0.520458, 0, 0.853887, -8.90856, 0.922358, -1.07638)
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2"]
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box2"]
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="Box3" type="RigidBody3D" parent="."]
+transform = Transform3D(0.85415, 0, -0.520026, 0, 1, 0, 0.520026, 0, 0.85415, -5.99481, 0.922358, -0.241993)
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3"]
+shape = SubResource("BoxShape3D_1bvp3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Box3"]
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(0.85415, 0, -0.520026, 0, 1, 0, 0.520026, 0, 0.85415, -4.24142, 0.922358, 1.49662)
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("SphereMesh_1bvp3")
+
+[node name="Ball2" type="RigidBody3D" parent="."]
+transform = Transform3D(0.85415, 0, -0.520026, 0, 1, 0, 0.520026, 0, 0.85415, -10.0533, 0.922358, -2.75792)
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_h2yge")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball2"]
+shape = SubResource("SphereShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball2"]
+mesh = SubResource("SphereMesh_1bvp3")

@@ -1,0 +1,15 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.3
+reloadable = true
+
+[libraries]
+# linux.debug.x86_64 =     "res://target/release/libsand_witch_project_gdext.so"
+linux.debug.x86_64 =     "res://target/debug/libsand_witch_project_gdext.so"
+linux.release.x86_64 =   "res://target/release/libsand_witch_project_gdext.so"
+windows.debug.x86_64 =   "res://target/debug/sand_witch_project_gdext.dll"
+windows.release.x86_64 = "res://target/release/sand_witch_project_gdext.dll"
+macos.debug =            "res://target/debug/libsand_witch_project_gdext.dylib"
+macos.release =          "res://target/release/libsand_witch_project_gdext.dylib"
+macos.debug.arm64 =      "res://target/debug/libsand_witch_project_gdext.dylib"
+macos.release.arm64 =    "res://target/release/libsand_witch_project_gdext.dylib"

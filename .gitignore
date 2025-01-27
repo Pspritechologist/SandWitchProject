@@ -1,3 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Rust
+/target/*
+!/target/release/
+!/target/debug/
+!/target/.gdignore
+/target/release/*
+/target/debug/*
+!/target/*/*.so
+!/target/*/*.dll
+!/target/*/*.dylib

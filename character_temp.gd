@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends CharacterBody3DExtension
 
 @export var accel := 10.0
 @export var max_speed := 5.0
@@ -28,38 +28,43 @@ extends CharacterBody3D
 
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
-
+	
 	var input_dir := Input.get_vector(input_move_left, input_move_right, input_move_forward, input_move_backward)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var is_sprinting := Input.is_action_pressed(input_sprint) and not (crouch_manager and crouch_manager.actually_crouching)
 	var real_accel := (accel * sprint_accel_mult if is_sprinting else accel) * (1.0 if is_on_floor() else air_control) * delta
 	var real_max_speed := max_speed * sprint_max_speed_mult if is_sprinting else max_speed
-
+	
 	if Input.is_action_just_pressed(input_jump) and is_on_floor():
 		velocity.y = jump_velocity * (jump_sprint_velocity_mult if is_sprinting else 1.0)
 		velocity.x += direction.x * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
 		velocity.z += direction.z * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
-
+	
 	if direction:
-		velocity.x = lerp(velocity.x, direction.x * real_max_speed, real_accel)
-		velocity.z = lerp(velocity.z, direction.z * real_max_speed, real_accel)
+		target_speed = real_max_speed
+		direction *= real_max_speed
+		direction.y = velocity.y
+		velocity = velocity.move_toward(direction, real_accel)
 	else:
-		velocity.x = lerp(velocity.x, 0.0, real_accel)
-		velocity.z = lerp(velocity.z, 0.0, real_accel)
-
-	if Input.is_action_just_pressed(input_pause):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-	move_and_slide()
-
+		target_speed = 0
+		velocity = velocity.move_toward(Vector3(0, velocity.y, 0), real_accel)
+	
+	move_and_slide(delta)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Mouse movement.
 	if event is InputEventMouseMotion:
 		var mouse_event := event as InputEventMouseMotion
 		var motion := mouse_event.relative * (0.001 * input_mouse_sensitivity)
 		rotate_y(-deg_to_rad(motion.x))
 		head.rotate_x(-deg_to_rad(motion.y))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+	# Cursor capturing.
+	elif event.is_action_pressed(input_pause):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+	
