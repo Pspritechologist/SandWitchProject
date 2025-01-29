@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://ndjolkiwjpao"]
+[gd_scene load_steps=14 format=3 uid="uid://ndjolkiwjpao"]
 
 [ext_resource type="Script" uid="uid://ccway715frrqr" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://character.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://76hvc2tcw2pm" path="res://assets/maps/swp_jungle.map" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://lgie1goj86dj" path="res://assets/models/dry_egg.gltf" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -28,6 +29,9 @@ bounce = 0.03
 [sub_resource type="SphereShape3D" id="SphereShape3D_h2yge"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_1bvp3"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1bvp3"]
+points = PackedVector3Array(0.103679, 0.484116, -0.0472051, -0.362415, -0.0587025, -0.107025, -0.364374, -0.0591912, 0.103702, 0.194196, -0.421453, 0.0583993, 0.103358, -0.104159, -0.363195, 0.103308, 0.0613161, 0.359129, 0.357254, 0.0610662, -0.106655, -0.18363, -0.423064, 0.0737722, -0.153126, 0.45457, -0.0472721, -0.0925783, -0.255572, -0.349355, -0.0918899, 0.256072, -0.316712, -0.106845, -0.253458, 0.342901, -0.105935, 0.254172, 0.310158, 0.238911, 0.24195, 0.23884, 0.254139, -0.239889, 0.254069, 0.329225, -0.2547, -0.107268, 0.236741, 0.240052, -0.240564, 0.073817, -0.423333, -0.183809, -0.317974, 0.256973, 0.0883566, -0.241228, 0.22573, -0.241298, -0.0469499, 0.466609, 0.133133, 0.332016, 0.213377, 0.089069, -0.243358, -0.255361, -0.258535, -0.2713, 0.03125, 0.267477, -0.332303, -0.253902, 0.103115, 0.252936, -0.238615, -0.256759, 0.358283, -0.043692, 0.118083, 0.0583918, -0.421929, 0.194402, -0.151905, -0.418625, -0.136895, 0.103308, -0.254426, 0.344073, 0.0882931, 0.256991, -0.317999, -0.121023, 0.0165112, -0.359316)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ig7tw")
@@ -110,3 +114,12 @@ shape = SubResource("SphereShape3D_h2yge")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball2"]
 mesh = SubResource("SphereMesh_1bvp3")
+
+[node name="blockbench_export" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03116, 0.00357175, -1.71798)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46875, 0)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[editable path="blockbench_export"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b5odt3mvxcsai"]
 
 [ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://character_temp.gd" id="1_glpr6"]
-[ext_resource type="Script" path="res://crouch_manager.gd" id="2_pjt0s"]
+[ext_resource type="Script" uid="uid://cds27r3l7mp4l" path="res://crouch_manager.gd" id="2_pjt0s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
 height = 1.5

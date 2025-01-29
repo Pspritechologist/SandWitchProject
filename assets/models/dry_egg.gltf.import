@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/dry_egg.gltf-30a98d75ec13263bc2aee85e0ebc3369
 
 [params]
 
-nodes/root_type=""
-nodes/root_name=""
+nodes/root_type="RigidBody3D"
+nodes/root_name="DryEgg"
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
