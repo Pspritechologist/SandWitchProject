@@ -6,12 +6,12 @@
 [ext_resource type="Resource" uid="uid://ca7377sfgj074" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_skip.tres" id="4_wqdmh"]
 [ext_resource type="Resource" uid="uid://d1sr7b71dxvma" path="res://assets/maps/mapping_assets/main_map_fgd_data.tres" id="5_g6d5m"]
 [ext_resource type="Texture2D" uid="uid://decwujsyhj0qy" path="res://addons/func_godot/icon32.png" id="6_looy1"]
-[ext_resource type="Script" path="res://addons/func_godot/src/trenchbroom/trenchbroom_game_config.gd" id="7_puc73"]
+[ext_resource type="Script" uid="uid://6h5x1hvgjgei" path="res://addons/func_godot/src/trenchbroom/trenchbroom_game_config.gd" id="7_puc73"]
 
 [resource]
 script = ExtResource("7_puc73")
 export_file = false
-game_name = "Pengu Charles Island"
+game_name = "SandWitchProject"
 icon = ExtResource("6_looy1")
 map_formats = Array[Dictionary]([{
 "format": "Valve",
@@ -25,9 +25,12 @@ map_formats = Array[Dictionary]([{
 }, {
 "format": "Quake3"
 }])
+textures_root_folder = "assets/textures"
 texture_exclusion_patterns = Array[String](["*_albedo", "*_ao", "*_emission", "*_height", "*_metallic", "*_normal", "*_orm", "*_roughness", "*_sss"])
+palette_path = "textures/palette.lmp"
 fgd_file = ExtResource("5_g6d5m")
 entity_scale = "32"
-default_uv_scale = Vector2(1, 1)
 brush_tags = Array[Resource]([ExtResource("1_wsgw3"), ExtResource("2_15g7q")])
 brushface_tags = Array[Resource]([ExtResource("3_q1caj"), ExtResource("4_wqdmh")])
+default_uv_scale = Vector2(1, 1)
+game_config_version = 3

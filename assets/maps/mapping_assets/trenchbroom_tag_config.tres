@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TrenchBroomTag" load_steps=2 format=3 uid="uid://r254i5efuawe"]
 
-[ext_resource type="Script" path="res://addons/func_godot/src/trenchbroom/trenchbroom_tag.gd" id="1_mcfkx"]
+[ext_resource type="Script" uid="uid://byi6kgin80lg7" path="res://addons/func_godot/src/trenchbroom/trenchbroom_tag.gd" id="1_mcfkx"]
 
 [resource]
 script = ExtResource("1_mcfkx")

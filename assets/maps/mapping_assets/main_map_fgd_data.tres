@@ -2,12 +2,12 @@
 
 [ext_resource type="Resource" uid="uid://crgpdahjaj" path="res://addons/func_godot/fgd/func_godot_fgd.tres" id="1_yhapc"]
 [ext_resource type="Resource" uid="uid://db3gda7kmuv7" path="res://assets/maps/mapping_assets/entities/testing_entities/testing_entities.tres" id="2_kec0c"]
-[ext_resource type="Script" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="3_cftbi"]
+[ext_resource type="Script" uid="uid://dw5rmkfwxw0do" path="res://addons/func_godot/src/fgd/func_godot_fgd_file.gd" id="3_cftbi"]
 
 [resource]
 script = ExtResource("3_cftbi")
 export_file = false
-model_key_word_supported = true
-fgd_name = "pci"
+target_map_editor = 1
+fgd_name = "swp"
 base_fgd_files = Array[Resource]([ExtResource("1_yhapc"), ExtResource("2_kec0c")])
 entity_definitions = Array[Resource]([])
