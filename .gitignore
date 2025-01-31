@@ -5,10 +5,10 @@
 # Rust
 /target/*
 !/target/release/
-!/target/debug/
+!/target/editor/
 !/target/.gdignore
 /target/release/*
-/target/debug/*
+/target/editor/*
 !/target/*/*.so
 !/target/*/*.dll
 !/target/*/*.dylib

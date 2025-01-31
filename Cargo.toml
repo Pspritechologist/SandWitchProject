@@ -1,3 +1,12 @@
 [workspace]
+resolver = "2"
 members = ["rust"]
 
+[profile.release]
+strip = true
+
+[profile.editor]
+inherits = "release"
+strip = true
+debug-assertions = true
+overflow-checks = true
