@@ -27,15 +27,17 @@ extends CharacterBody3DExtension
 
 
 func _physics_process(delta: float) -> void:
-	velocity += get_gravity() * delta
+	_apply_gravity(delta)
+	
+	var on_floor := _check_on_floor()
 	
 	var input_dir := Input.get_vector(input_move_left, input_move_right, input_move_forward, input_move_backward)
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var is_sprinting := Input.is_action_pressed(input_sprint) and not (crouch_manager and crouch_manager.actually_crouching)
-	var real_accel := (accel * sprint_accel_mult if is_sprinting else accel) * (1.0 if is_on_floor() else air_control) * delta
+	var real_accel := (accel * sprint_accel_mult if is_sprinting else accel) * (1.0 if on_floor else air_control) * delta
 	var real_max_speed := max_speed * sprint_max_speed_mult if is_sprinting else max_speed
 	
-	if Input.is_action_just_pressed(input_jump) and is_on_floor():
+	if Input.is_action_just_pressed(input_jump) and on_floor:
 		velocity.y = jump_velocity * (jump_sprint_velocity_mult if is_sprinting else 1.0)
 		velocity.x += direction.x * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
 		velocity.z += direction.z * jump_speed_boost * (jump_sprint_speed_boost if is_sprinting else 1.0)
@@ -67,4 +69,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
+	
+
+func _apply_gravity(delta: float) -> void:
+	velocity += get_gravity() * delta
+	
+
+func _check_on_floor() -> bool:
+	return is_on_floor()
 	
