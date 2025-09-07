@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://dskds4km32okl"]
+
+[ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://fps/health_manager.gd" id="1_grlcn"]
+[ext_resource type="Script" uid="uid://e5jyxhk8lk7n" path="res://hate_cube.gd" id="1_rgkom"]
+[ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://fps/hitbox_manager.tscn" id="2_xt4t1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgkom"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+material = SubResource("StandardMaterial3D_rgkom")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mycd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_272bh"]
+
+[node name="HateCube" type="RigidBody3D" node_paths=PackedStringArray("hitbox_manager", "health_manager")]
+collision_layer = 4
+collision_mask = 5
+mass = 5.0
+contact_monitor = true
+max_contacts_reported = 6
+script = ExtResource("1_rgkom")
+hitbox_manager = NodePath("HitboxManager")
+health_manager = NodePath("HealthManager")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_lquwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7mycd")
+
+[node name="HitboxManager" parent="." instance=ExtResource("2_xt4t1")]
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitboxManager"]
+shape = SubResource("BoxShape3D_272bh")
+
+[node name="HealthManager" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("1_grlcn")
+health_bar = NodePath("../Node3D/HealthBar")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../Node3D")
+update_rotation = false
+
+[node name="Node3D" type="Node3D" parent="."]
+top_level = true
+
+[node name="HealthBar" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.0005
+billboard = 2
+shaded = true
+text = "HEALTH"
+font_size = 480
+outline_size = 120

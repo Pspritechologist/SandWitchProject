@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5odt3mvxcsai"]
+[gd_scene load_steps=13 format=3 uid="uid://b5odt3mvxcsai"]
 
 [ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://character_temp.gd" id="1_glpr6"]
 [ext_resource type="Script" uid="uid://cds27r3l7mp4l" path="res://crouch_manager.gd" id="2_pjt0s"]
+[ext_resource type="Script" uid="uid://rekdw0dmvm5u" path="res://fps/gun_manager.gd" id="3_wa5vi"]
+[ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://fps/hitbox_manager.tscn" id="4_px5sl"]
+[ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://fps/health_manager.gd" id="5_0qfo5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2yge"]
 height = 1.5
@@ -20,11 +23,15 @@ height = 1.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjt0s"]
 
-[node name="CharacterBody3D" type="CharacterBody3DExtension" node_paths=PackedStringArray("crouch_manager")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px5sl"]
+
+[node name="CharacterBody3D" type="CharacterBody3DExtension" node_paths=PackedStringArray("crouch_manager", "hitbox_manager", "health_manager")]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_glpr6")
 crouch_manager = NodePath("CrouchManager")
+hitbox_manager = NodePath("HitboxManager")
+health_manager = NodePath("HealthManager")
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -43,6 +50,14 @@ shaded = true
 text = "@_@"
 font_size = 650
 outline_size = 120
+
+[node name="GunManager" type="RayCast3D" parent="Head"]
+enabled = false
+target_position = Vector3(0, 0, -5)
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("3_wa5vi")
 
 [node name="Upper" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -79,3 +94,29 @@ script = ExtResource("2_pjt0s")
 lower_collision = NodePath("../Lower")
 lower_mesh = NodePath("../Lower/Lower")
 cast = NodePath("../Lower/ShapeCast3D")
+
+[node name="HitboxManager" parent="." instance=ExtResource("4_px5sl")]
+collision_layer = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxManager"]
+shape = SubResource("CapsuleShape3D_px5sl")
+
+[node name="HealthManager" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("5_0qfo5")
+health_bar = NodePath("../Node3D/HealthBar")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../Node3D")
+update_rotation = false
+
+[node name="Node3D" type="Node3D" parent="."]
+top_level = true
+
+[node name="HealthBar" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+pixel_size = 0.0005
+billboard = 2
+shaded = true
+text = "HEALTH"
+font_size = 480
+outline_size = 120
