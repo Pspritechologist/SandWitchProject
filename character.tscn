@@ -24,6 +24,8 @@ height = 1.5
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjt0s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_px5sl"]
+radius = 0.51
+height = 2.1
 
 [node name="CharacterBody3D" type="CharacterBody3DExtension" node_paths=PackedStringArray("crouch_manager", "hitbox_manager", "health_manager")]
 collision_layer = 2

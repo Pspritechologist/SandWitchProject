@@ -65,13 +65,173 @@ collision_mask = 5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46875, 0)
 shape = SubResource("ConvexPolygonShape3D_1bvp3")
 
+[node name="blockbench_export13" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.0054, -2.45129, 1.15529)
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46875, 0)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export12" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3255, 0.00357175, 0.0963444)
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46875, 0)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export2" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.3751, 0.434746, 8.90948)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export2/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export2"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export3" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5254, 0.434746, 11.3146)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export3/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export3"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export4" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.8533, 0.620378, 11.9561)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export4/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export4"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export5" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.3739, 0.434746, 12.4453)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export5/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export5"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export6" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.6668, 0.434746, 11.1425)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export6/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export6"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export7" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5018, 0.434746, 12.3761)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export7/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export7"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export8" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.569, 0.434746, 10.2625)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export8/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export8"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export9" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.6838, 0.434746, 9.07729)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export9/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export9"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export10" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1297, 0.621099, 10.3535)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export10/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export10"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
+[node name="blockbench_export11" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.1077, 0.549745, 11.7357)
+collision_layer = 4
+collision_mask = 5
+
+[node name="sphere" parent="blockbench_export11/Node" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="blockbench_export11"]
+transform = Transform3D(1, 0, 0, 0, 0.029579, -0.999562, 0, 0.999562, 0.029579, -7.29299, 2.74491, 5.40174)
+shape = SubResource("ConvexPolygonShape3D_1bvp3")
+
 [node name="Swampypeasants" parent="." instance=ExtResource("6_7mycd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4661, -11.4096, -1.09673)
 
 [node name="Testing" parent="." instance=ExtResource("7_272bh")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -51.1458, 0, 3.0951e-07)
+transform = Transform3D(-6.55521e-08, 0, 1.49966, 0, 1.49966, 0, -1.49966, 0, -6.55521e-08, -59.3662, -0.310954, 3.0951e-07)
 
 [node name="HateCube6" parent="." instance=ExtResource("4_lquwl")]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -20.2687, 3.76402, 1.48102)
 
+[node name="HateCube7" parent="." instance=ExtResource("4_lquwl")]
+transform = Transform3D(153.473, 0, 0, 0, 153.473, 0, 0, 0, 153.473, -13.4764, -188.522, -25.8763)
+freeze = true
+
+[node name="HateCube8" parent="." instance=ExtResource("4_lquwl")]
+transform = Transform3D(-16.2, 0, 0, 0, 1, 0, 0, 0, 1, -30.8851, 0.503572, 0.934583)
+
+[node name="HateCube9" parent="." instance=ExtResource("4_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310727, 164.372, 0.0327635)
+
 [editable path="blockbench_export"]
+[editable path="blockbench_export13"]
+[editable path="blockbench_export12"]
+[editable path="blockbench_export2"]
+[editable path="blockbench_export3"]
+[editable path="blockbench_export4"]
+[editable path="blockbench_export5"]
+[editable path="blockbench_export6"]
+[editable path="blockbench_export7"]
+[editable path="blockbench_export8"]
+[editable path="blockbench_export9"]
+[editable path="blockbench_export10"]
+[editable path="blockbench_export11"]
