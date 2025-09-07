@@ -12,10 +12,16 @@ extends CharacterBody3DExtension
 
 @export_group("Inputs", "input")
 @export var input_mouse_sensitivity := 100
+@export var input_controller_sensitivity_x := 150
+@export var input_controller_sensitivity_y := 150
 @export var input_move_forward := "forwards"
 @export var input_move_backward := "backwards"
 @export var input_move_left := "left"
 @export var input_move_right := "right"
+@export var input_look_up := "look_up"
+@export var input_look_down := "look_down"
+@export var input_look_left := "look_left"
+@export var input_look_right := "look_right"
 @export var input_jump := "jump"
 @export var input_sprint := "sprint"
 @export var input_pause := "pause"
@@ -25,6 +31,12 @@ extends CharacterBody3DExtension
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
 
+
+func _process(delta: float) -> void:
+	var look_dir := Input.get_vector(input_look_left, input_look_right, input_look_up, input_look_down)
+	rotate_y(-look_dir.x * (0.01 * input_controller_sensitivity_y) * delta)
+	head.rotate_x(-look_dir.y * (0.01 * input_controller_sensitivity_x) * delta)
+	
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
