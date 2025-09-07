@@ -30,12 +30,19 @@ extends CharacterBody3DExtension
 @export var hitbox_manager: HitboxManager
 @export var health_manager: HealthManager
 
+@export var ui: Ui
+
 @onready var head: Node3D = %Head
 @onready var camera: Camera3D = %Camera
 
 
 func _ready() -> void:
-	hitbox_manager.hit.connect(func(damage: int) -> void: health_manager.add_health(-damage))
+	if ui: ui.set_health(health_manager.current_health, health_manager.max_health)
+
+	hitbox_manager.hit.connect(func(damage: int) -> void:
+		health_manager.add_health(-damage)
+		if ui: ui.set_health(health_manager.current_health, health_manager.max_health)
+	)
 	health_manager.died.connect(func() -> void: get_tree().quit())
 
 
