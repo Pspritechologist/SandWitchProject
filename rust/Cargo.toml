@@ -7,9 +7,11 @@ edition = "2021"
 crate-type = [ "cdylib" ]
 
 [dependencies]
-serde = { version = "*", features = [ "derive" ] }
 
 [dependencies.godot]
-git = "https://github.com/godot-rust/gdext"
-branch = "master"
-features = [ "experimental-threads", "api-custom", "register-docs", "serde" ]
+version = "0.3.5"
+features = [
+	"experimental-threads",
+	"api-4-4",
+	"register-docs",
+]
