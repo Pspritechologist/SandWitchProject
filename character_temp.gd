@@ -1,6 +1,6 @@
 extends CharacterBody3DExtension
 
-@export var accel := 10.0
+@export var accel := 25.0
 @export var max_speed := 5.0
 @export var sprint_accel_mult := 1.5
 @export var sprint_max_speed_mult := 1.5
@@ -103,4 +103,3 @@ func _apply_gravity(delta: float) -> void:
 
 func _check_on_floor() -> bool:
 	return is_on_floor()
-

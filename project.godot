@@ -21,6 +21,7 @@ gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_call_argument=1
 gdscript/warnings/empty_file=0
+gdscript/warnings/confusable_local_declaration=0
 
 [display]
 

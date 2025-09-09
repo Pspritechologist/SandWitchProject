@@ -13,6 +13,7 @@ func _process(_delta: float) -> void:
 		if (hm):
 			print(hm)
 			hm.do_hit(50)
-
+	
 	if Input.is_action_just_pressed(input_weapon_secondary):
 		print("Secondary Fire")
+	
