@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0ficf5tu0gyc"]
+
+[ext_resource type="Script" uid="uid://csnbg5w6kgkt0" path="res://rts/rts_interface.gd" id="1_5a3ou"]
+[ext_resource type="Script" uid="uid://8kv18ghyigrv" path="res://rts/unit_menu.gd" id="1_jq4fh"]
+[ext_resource type="Script" uid="uid://c3vowodir5ulx" path="res://rts/unit_data.gd" id="2_6f66p"]
+[ext_resource type="Script" uid="uid://6u707nnlo70f" path="res://rts/rts_cursor.gd" id="4_7o2jj"]
+
+[sub_resource type="Resource" id="Resource_7o2jj"]
+script = ExtResource("2_6f66p")
+unit_name = &"Charlie"
+unit_desc = "A pig ol beng"
+metadata/_custom_type_script = "uid://c3vowodir5ulx"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i180"]
+albedo_color = Color(0.376471, 1, 1, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.376471, 1, 1, 1)
+emission_energy_multiplier = 0.3
+
+[sub_resource type="TorusMesh" id="TorusMesh_hk1mu"]
+material = SubResource("StandardMaterial3D_2i180")
+outer_radius = 0.619
+rings = 8
+
+[node name="RtsInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5a3ou")
+_dbg_units = Array[ExtResource("2_6f66p")]([SubResource("Resource_7o2jj")])
+
+[node name="UnitSelector" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -320.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_jq4fh")
+
+[node name="Panel" type="Panel" parent="UnitSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UnitSelector"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -320.0
+offset_right = -320.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 2
+follow_focus = true
+scroll_vertical_custom_step = 100.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UnitSelector/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 0
+columns = 15
+
+[node name="Container" type="Control" parent="UnitSelector"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -320.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UnitSelector/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ColorRect" type="ColorRect" parent="UnitSelector/Container/MarginContainer"]
+layout_mode = 2
+color = Color(0.238537, 0.523732, 1, 1)
+
+[node name="RtsCursor" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("TorusMesh_hk1mu")
+script = ExtResource("4_7o2jj")
+
+[connection signal="unit_selected" from="UnitSelector" to="." method="_on_unit_selected"]
