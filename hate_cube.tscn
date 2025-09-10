@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dskds4km32okl"]
 
-[ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://fps/health_manager.gd" id="1_grlcn"]
+[ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://utilities/health_manager.gd" id="1_grlcn"]
 [ext_resource type="Script" uid="uid://e5jyxhk8lk7n" path="res://hate_cube.gd" id="1_rgkom"]
-[ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://fps/hitbox_manager.tscn" id="2_xt4t1"]
+[ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://utilities/hitbox_manager.tscn" id="2_xt4t1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rgkom"]
 albedo_color = Color(1, 0, 0, 1)
@@ -34,6 +34,7 @@ shape = SubResource("BoxShape3D_7mycd")
 
 [node name="HitboxManager" parent="." instance=ExtResource("2_xt4t1")]
 collision_mask = 2
+monitoring = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="HitboxManager"]
 shape = SubResource("BoxShape3D_272bh")
