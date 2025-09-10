@@ -37,7 +37,7 @@ outer_radius = 0.619
 rings = 8
 
 [sub_resource type="BoxMesh" id="BoxMesh_7o2jj"]
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.325, 0.2, 0.11)
 
 [node name="RtsInterface" type="Control"]
 layout_mode = 3
@@ -136,6 +136,7 @@ fov = 90.0
 script = ExtResource("4_7o2jj")
 
 [node name="RayCast3D" type="RayCast3D" parent="RtsCamera"]
+enabled = false
 target_position = Vector3(0, 0, -20)
 
 [node name="RtsCursor" type="MeshInstance3D" parent="RtsCamera"]

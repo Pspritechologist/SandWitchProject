@@ -1,27 +1,24 @@
-class_name RtsCursor extends Camera3D
+class_name RtsCamera extends Camera3D
 
 @export var cursor_follow_mouse := true
 
-@onready var raycast: RayCast3D = $RayCast3D
-@onready var cube: Node3D = $Cube
+@onready var _raycast: RayCast3D = $RayCast3D
+@onready var _cursor: Node3D = $RtsCursor
 
 func _process(delta: float) -> void:
 	if !cursor_follow_mouse: return
 	
 	var mouse_pos := get_viewport().get_mouse_position()
-	#var origin := self.project_ray_origin(mouse_pos)
 	var normal := self.project_ray_normal(mouse_pos)
-	var origin := self.project_ray_origin(mouse_pos)
-	var pos := self.project_position(mouse_pos, 0.1)
 	
-	if fmod(Engine.get_process_frames(), 120) == 0:
-		print("normal: ", normal)
-		print("origin: ", origin)
-		print("pos   : ", pos)
+	var facing := _raycast.global_position + normal
+	_raycast.look_at(facing)
 	
-	#cube.global_position = pos
-	cube.look_at(normal)
-	raycast.look_at_from_position(pos, normal)
+	_raycast.force_raycast_update()
+	var hit_pos := _raycast.get_collision_point()
+	_cursor.global_position = hit_pos
+	
+	_cursor.rotate_y(deg_to_rad(45) * delta)
 	
 
 func _unhandled_input(event: InputEvent) -> void:
