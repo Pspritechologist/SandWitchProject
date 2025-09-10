@@ -1,15 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0ficf5tu0gyc"]
+[gd_scene load_steps=10 format=3 uid="uid://d0ficf5tu0gyc"]
 
 [ext_resource type="Script" uid="uid://csnbg5w6kgkt0" path="res://rts/rts_interface.gd" id="1_5a3ou"]
 [ext_resource type="Script" uid="uid://8kv18ghyigrv" path="res://rts/unit_menu.gd" id="1_jq4fh"]
-[ext_resource type="Script" uid="uid://c3vowodir5ulx" path="res://rts/unit_data.gd" id="2_6f66p"]
 [ext_resource type="Script" uid="uid://6u707nnlo70f" path="res://rts/rts_camera.gd" id="4_7o2jj"]
-
-[sub_resource type="Resource" id="Resource_7o2jj"]
-script = ExtResource("2_6f66p")
-unit_name = &"Charlie"
-unit_desc = "A pig ol beng"
-metadata/_custom_type_script = "uid://c3vowodir5ulx"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7o2jj"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -24,6 +17,9 @@ sky = SubResource("Sky_2i180")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_7o2jj"]
+size = Vector3(0.325, 0.2, 0.11)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i180"]
 albedo_color = Color(0.376471, 1, 1, 1)
 roughness = 0.0
@@ -36,9 +32,6 @@ material = SubResource("StandardMaterial3D_2i180")
 outer_radius = 0.619
 rings = 8
 
-[sub_resource type="BoxMesh" id="BoxMesh_7o2jj"]
-size = Vector3(0.325, 0.2, 0.11)
-
 [node name="RtsInterface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -48,7 +41,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_5a3ou")
-_dbg_units = Array[ExtResource("2_6f66p")]([SubResource("Resource_7o2jj")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hk1mu")
@@ -135,8 +127,11 @@ current = true
 fov = 90.0
 script = ExtResource("4_7o2jj")
 
+[node name="RtsHead" type="MeshInstance3D" parent="RtsCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_7o2jj")
+
 [node name="RayCast3D" type="RayCast3D" parent="RtsCamera"]
-enabled = false
 target_position = Vector3(0, 0, -20)
 
 [node name="RtsCursor" type="MeshInstance3D" parent="RtsCamera"]
@@ -144,9 +139,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.19209e-07)
 top_level = true
 cast_shadow = 0
 mesh = SubResource("TorusMesh_hk1mu")
-skeleton = NodePath("../..")
-
-[node name="Cube" type="MeshInstance3D" parent="RtsCamera"]
-mesh = SubResource("BoxMesh_7o2jj")
 
 [connection signal="unit_selected" from="UnitSelector" to="." method="_on_unit_selected"]

@@ -11,28 +11,26 @@ func _ready() -> void:
 		_camera.global_transform = _spawn_marker.global_transform
 		_spawn_marker.queue_free()
 	
-	for i in range(1, 1000):
+	for i in range(1, 40):
 		var data := UnitData.new()
 		data.unit_name = str(i)
 		data.unit_desc = "Fake unit number %d" % i
+		data.unit_scene = preload("res://rts/units/unit_charlie.tscn")
 		_unit_selector.add_unit(data)
 	
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"unit_menu"):
 		_unit_selector.visible = !_unit_selector.visible
 		
 	
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"spawn_unit"): if _unit_selector.is_unit_selected():
+		_camera.spawn_unit(get_parent(), _unit_selector.selected_unit)
+		
+	
+
 func _on_unit_selected(unit: UnitData):
-	_unit_selector.remove_unit(unit.unit_name)
-	
-
-func _process(delta: float) -> void:
-	_handle_selected_unit(delta)
-	
-
-func _handle_selected_unit(_delta: float) -> void:
-	if !_unit_selector.is_unit_selected(): return
-	
+	_camera.set_cursor_color(Color.RED if unit else Color.AQUA)
 	

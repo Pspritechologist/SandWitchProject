@@ -3,7 +3,42 @@ class_name RtsCamera extends Camera3D
 @export var cursor_follow_mouse := true
 
 @onready var _raycast: RayCast3D = $RayCast3D
-@onready var _cursor: Node3D = $RtsCursor
+@onready var _cursor: MeshInstance3D = $RtsCursor
+
+## Spawns a unit at the cursor's location.
+## - [arg parent]: The Node the Unit will be parented to.
+## - [arg unit]: The unit to spawn. If the Unit's scene fails to instantiate, an error will be printed.
+## - [arg rotate]: Should the unit be rotated so it faces away from the camera.
+## - [arg offset]: An optional offset applied to the unit after after spawning it.
+## - [arg rot_offset]: An optional offset as a [Basis] applied to the Unit after spawning it.
+##   The Unit's rotation will be multiplied by the provided Basis after spawning.
+func spawn_unit(parent: Node, unit: UnitData, rotate: bool = true, offset: Vector3 = Vector3(), rot_offset: Basis = Basis()) -> void:
+	var unit_inst: Node3D = unit.unit_scene.instantiate()
+	if !unit_inst:
+		push_error("Failed to instantiate Unit: %s (%s)" % [unit.unit_name, unit.unit_scene.resource_path])
+		print_debug("A the root of a Unit's Scene must be a Node3D")
+		return
+		
+	
+	parent.add_child(unit_inst)
+	
+	unit_inst.global_position = _cursor.global_position
+	if rotate:
+		var cam := self.global_position
+		var curs := _cursor.global_position
+		cam.y = 0
+		curs.y = 0
+		var diff := cam - curs
+		unit_inst.look_at(diff * 100)
+		
+	
+	unit_inst.position += offset
+	unit_inst.rotation *= rot_offset
+	
+
+func set_cursor_color(color: Color) -> void:
+	_cursor.mesh.surface_get_material(0).albedo_color = color
+	
 
 func _process(delta: float) -> void:
 	if !cursor_follow_mouse: return
@@ -14,7 +49,6 @@ func _process(delta: float) -> void:
 	var facing := _raycast.global_position + normal
 	_raycast.look_at(facing)
 	
-	_raycast.force_raycast_update()
 	var hit_pos := _raycast.get_collision_point()
 	_cursor.global_position = hit_pos
 	

@@ -30,6 +30,8 @@ radius = 0.235786
 height = 1.88462
 
 [node name="UnitCharlie" type="CharacterBody3D" node_paths=PackedStringArray("_hitbox_manager", "_health_manager")]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_yx8kj")
 _hitbox_manager = NodePath("HitboxManager")
 _health_manager = NodePath("HealthManager")
