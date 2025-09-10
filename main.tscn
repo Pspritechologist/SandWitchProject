@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://ndjolkiwjpao"]
+[gd_scene load_steps=13 format=3 uid="uid://ndjolkiwjpao"]
 
 [ext_resource type="Script" uid="uid://ccway715frrqr" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://character.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://d0ficf5tu0gyc" path="res://rts/rts_interface.tscn" id="2_kek77"]
 [ext_resource type="PackedScene" uid="uid://76hvc2tcw2pm" path="res://assets/maps/swp_jungle.map" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://lgie1goj86dj" path="res://assets/models/dry_egg.gltf" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dskds4km32okl" path="res://hate_cube.tscn" id="4_lquwl"]
 [ext_resource type="PackedScene" uid="uid://vrhfvn7c57ch" path="res://assets/maps/swampypeasants.map" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://l2uljl1eyl75" path="res://assets/maps/testing.map" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://5fnsoo8vcjv" path="res://rts/units/unit_charlie.tscn" id="8_5vw27"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -34,9 +35,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h2yge")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("2_0xm2m")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
-accel = 25.0
+[node name="RtsInterface" parent="." instance=ExtResource("2_kek77")]
 
 [node name="SwpJungle" parent="." instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.206, -11.425, 0)
@@ -221,6 +220,9 @@ transform = Transform3D(-16.2, 0, 0, 0, 1, 0, 0, 0, 1, -30.8851, 0.503572, 0.934
 
 [node name="HateCube9" parent="." instance=ExtResource("4_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310727, 164.372, 0.0327635)
+
+[node name="UnitCharlie" parent="." instance=ExtResource("8_5vw27")]
+transform = Transform3D(0.603278, 0, -0.797531, 0, 1, 0, 0.797531, 0, 0.603278, -6.14555, 0.010172, 1.48828)
 
 [editable path="blockbench_export"]
 [editable path="blockbench_export13"]
