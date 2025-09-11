@@ -128,7 +128,6 @@ fov = 90.0
 script = ExtResource("4_7o2jj")
 
 [node name="RtsHead" type="MeshInstance3D" parent="RtsCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_7o2jj")
 
 [node name="RayCast3D" type="RayCast3D" parent="RtsCamera"]
