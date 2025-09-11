@@ -123,15 +123,17 @@ color = Color(0.238537, 0.523732, 1, 1)
 
 [node name="RtsCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.919595, 0.392867, 0, -0.392867, 0.919595, 0, 2.74073, 1.98744)
+projection = 1
 current = true
 fov = 90.0
+size = 20.0
 script = ExtResource("4_7o2jj")
 
 [node name="RtsHead" type="MeshInstance3D" parent="RtsCamera"]
 mesh = SubResource("BoxMesh_7o2jj")
 
 [node name="RayCast3D" type="RayCast3D" parent="RtsCamera"]
-target_position = Vector3(0, 0, -20)
+target_position = Vector3(0, 0, -100)
 
 [node name="RtsCursor" type="MeshInstance3D" parent="RtsCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.19209e-07)

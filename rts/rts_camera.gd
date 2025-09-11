@@ -45,10 +45,8 @@ func set_cursor_color(color: Color) -> void:
 func _process(delta: float) -> void:
 	if _do_follow_mouse && do_follow_mouse:
 		var mouse_pos := get_viewport().get_mouse_position()
-		var normal := self.project_ray_normal(mouse_pos)
 		
-		var facing := _raycast.global_position + normal
-		_raycast.look_at(facing)
+		_raycast.global_position = self.project_ray_origin(mouse_pos)
 		
 		var hit_pos := _raycast.get_collision_point()
 		_cursor.global_position = hit_pos
@@ -59,21 +57,14 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var mouse_event := event as InputEventMouseMotion
-		if Input.is_action_pressed(&"rotate", true):
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			_do_follow_mouse = false
-			rotate_y(deg_to_rad(-mouse_event.relative.x * 0.1))
-			var new_rot := rotation_degrees
-			new_rot.x = clamp(new_rot.x - mouse_event.relative.y * 0.1, -89.9, 89.9)
-			rotation_degrees = new_rot
-		elif Input.is_action_pressed(&"pan", true):
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			_do_follow_mouse = false
-			var right := -transform.basis.x.normalized()
-			var forward := -transform.basis.z.normalized()
-			translate_object_local(right * mouse_event.relative.x * 0.1)
-			translate_object_local(forward * mouse_event.relative.y * 0.1)
-	elif event.is_action_released(&"pan") or event.is_action_released(&"rotate"):
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			_do_follow_mouse = true
+		if Input.is_action_pressed(&"pan", true):
+			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			#_do_follow_mouse = false
+			translate(-transform.basis.x * mouse_event.relative.x * 0.1)
+			translate(transform.basis.z * mouse_event.relative.y * 0.1)
+	elif event.is_action_released(&"pan"): pass
+			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			#var curs_pos := _cursor.global_transform.origin
+			#Input.warp_mouse(self.unproject_position(curs_pos))
+			#_do_follow_mouse = true
 	
