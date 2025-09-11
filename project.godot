@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SandWitchProject"
-run/main_scene="uid://ndjolkiwjpao"
+run/main_scene="uid://cpemfc0rdiy6m"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

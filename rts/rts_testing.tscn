@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpemfc0rdiy6m"]
+
+[ext_resource type="PackedScene" uid="uid://vrhfvn7c57ch" path="res://assets/maps/swampypeasants.map" id="1_u5aq2"]
+[ext_resource type="PackedScene" uid="uid://d0ficf5tu0gyc" path="res://rts/rts_interface.tscn" id="2_a31ti"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_57qqc"]
+sky_top_color = Color(0.299215, 0.353435, 0.261361, 1)
+sky_horizon_color = Color(0.134538, 0.227119, 0.0926284, 1)
+ground_bottom_color = Color(0.159276, 0.191188, 0.0442958, 1)
+ground_horizon_color = Color(0.652734, 0.677962, 0.665239, 1)
+
+[sub_resource type="Sky" id="Sky_xia41"]
+sky_material = SubResource("ProceduralSkyMaterial_57qqc")
+
+[sub_resource type="Environment" id="Environment_7f4sk"]
+background_mode = 2
+sky = SubResource("Sky_xia41")
+tonemap_mode = 2
+glow_enabled = true
+fog_mode = 1
+fog_density = 1.0
+fog_sky_affect = 0.389
+fog_depth_curve = 0.341511
+fog_depth_begin = 5.0
+
+[sub_resource type="GDScript" id="GDScript_pdplg"]
+script/source = "extends OmniLight3D
+
+@export var flicker := 15
+
+func _process(delta: float) -> void:
+	if randi() % flicker == 0:
+		hide()
+	else:
+		show()
+	
+"
+
+[node name="RtsTesting" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7f4sk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.35957, -0.893565, -0.268795, -0.67883, 0.0528488, 0.732391, -0.640234, 0.445812, -0.625582, -0.000668406, -0.00451565, -0.000858784)
+light_color = Color(0, 0, 0, 1)
+light_angular_distance = 27.52
+shadow_enabled = true
+
+[node name="Swampypeasants" parent="." instance=ExtResource("1_u5aq2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.157788, -0.242684, 0.0396163)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Swampypeasants"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 0)
+light_energy = 2.293
+omni_range = 16.211
+omni_attenuation = 1.202
+script = SubResource("GDScript_pdplg")
+flicker = 25
+
+[node name="RtsInterface" parent="." node_paths=PackedStringArray("_spawn_marker") instance=ExtResource("2_a31ti")]
+_spawn_marker = NodePath("../Marker3D")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-3.09086e-08, 0.707107, -0.707107, 3.09086e-08, 0.707107, 0.707107, 1, 0, -4.37114e-08, -11.7818, 8.00718, 0)
