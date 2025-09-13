@@ -8,7 +8,7 @@ class_name RtsInterface extends Control
 
 func _ready() -> void:
 	if _spawn_marker:
-		_camera.global_transform = _spawn_marker.global_transform
+		_camera.set_cam_global_transform(_spawn_marker.global_transform)
 		_spawn_marker.queue_free()
 	
 	for i in range(1, 40):

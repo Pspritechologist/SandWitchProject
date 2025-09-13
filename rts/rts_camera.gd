@@ -9,6 +9,7 @@ var _do_follow_mouse := true
 @onready var _cursor_select: Area3D = $RtsCursor/CursorSelectionBounds
 @onready var _cam: Camera3D = $Camera3D
 @onready var _target_rot := self.global_rotation.y
+@onready var _target_size := _cam.size
 
 ## Spawns a unit at the cursor's location.
 ## - [arg parent]: The Node the Unit will be parented to.
@@ -45,6 +46,11 @@ func set_cursor_color(color: Color) -> void:
 	_cursor.mesh.surface_get_material(0).albedo_color = color
 	
 
+func set_cam_global_transform(new: Transform3D):
+	global_transform = new
+	_target_rot = global_rotation.y
+	
+
 func _process(delta: float) -> void:
 	if _do_follow_mouse && do_follow_mouse:
 		var mouse_pos := get_viewport().get_mouse_position()
@@ -64,23 +70,22 @@ func _physics_process(_delta: float) -> void:
 	if snappedf(lerped, 0.01) == snappedf(self.global_rotation.y, 0.01): _target_rot = fmod(_target_rot, deg_to_rad(360))
 	self.global_rotation.y = lerped
 	
+	_cam.size = lerpf(_cam.size, _target_size, 0.1)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var mouse_event := event as InputEventMouseMotion
 		if Input.is_action_pressed(&"pan", true):
-			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			#_do_follow_mouse = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			_cursor.visible = false
 			self.global_translate(-self.global_transform.basis.x * mouse_event.relative.x * 0.1)
-			self.global_translate(self.global_transform.basis.y * mouse_event.relative.y * 0.1)
-	elif event.is_action_released(&"pan"): pass
-			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			#var curs_pos := _cursor.global_transform.origin
-			#Input.warp_mouse(self.unproject_position(curs_pos))
-			#_do_follow_mouse = true
-	#TODO: Make zoom lerp.
-	elif event.is_action_pressed(&"zoom_in", true): _cam.size = clampf(_cam.size - 2, 5, 30)
-	elif event.is_action_pressed(&"zoom_out", true): _cam.size = clampf(_cam.size + 2, 5, 30)
+			self.global_translate(-self.global_transform.basis.z * mouse_event.relative.y * 0.1)
+	elif event.is_action_released(&"pan"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			_cursor.visible = true
+	elif event.is_action_pressed(&"zoom_in", true): _target_size = clampf(_target_size - 2, 5, 30)
+	elif event.is_action_pressed(&"zoom_out", true): _target_size = clampf(_target_size + 2, 5, 30)
 	elif event.is_action_pressed(&"rotate_cw", true): self._target_rot -= deg_to_rad(45)
 	elif event.is_action_pressed(&"rotate_ccw", true): self._target_rot += deg_to_rad(45)
 	
