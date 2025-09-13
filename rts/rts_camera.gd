@@ -1,11 +1,14 @@
-class_name RtsCamera extends Camera3D
+class_name RtsCamera extends Node3D
 
 @export var do_follow_mouse := true
 
 var _do_follow_mouse := true
 
-@onready var _raycast: RayCast3D = $RayCast3D
+@onready var _raycast: RayCast3D = $Camera3D/RayCast3D
 @onready var _cursor: MeshInstance3D = $RtsCursor
+@onready var _cursor_select: Area3D = $RtsCursor/CursorSelectionBounds
+@onready var _cam: Camera3D = $Camera3D
+@onready var _target_rot := self.global_rotation.y
 
 ## Spawns a unit at the cursor's location.
 ## - [arg parent]: The Node the Unit will be parented to.
@@ -46,12 +49,20 @@ func _process(delta: float) -> void:
 	if _do_follow_mouse && do_follow_mouse:
 		var mouse_pos := get_viewport().get_mouse_position()
 		
-		_raycast.global_position = self.project_ray_origin(mouse_pos)
+		self._raycast.global_position = _cam.project_ray_origin(mouse_pos)
 		
 		var hit_pos := _raycast.get_collision_point()
 		_cursor.global_position = hit_pos
 	
 	_cursor.rotate_y(deg_to_rad(45) * delta)
+	
+
+func _physics_process(_delta: float) -> void:
+	# Handle lerping rotation here, cheap way to lock the speed.
+	var lerped := lerp_angle(self.global_rotation.y, self._target_rot, 0.1)
+	# If we've stopped moving, reduce the target rotation. This stops the number from growing forever.
+	if snappedf(lerped, 0.01) == snappedf(self.global_rotation.y, 0.01): _target_rot = fmod(_target_rot, deg_to_rad(360))
+	self.global_rotation.y = lerped
 	
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -60,11 +71,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Input.is_action_pressed(&"pan", true):
 			#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			#_do_follow_mouse = false
-			translate(-transform.basis.x * mouse_event.relative.x * 0.1)
-			translate(transform.basis.z * mouse_event.relative.y * 0.1)
+			self.global_translate(-self.global_transform.basis.x * mouse_event.relative.x * 0.1)
+			self.global_translate(self.global_transform.basis.y * mouse_event.relative.y * 0.1)
 	elif event.is_action_released(&"pan"): pass
 			#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			#var curs_pos := _cursor.global_transform.origin
 			#Input.warp_mouse(self.unproject_position(curs_pos))
 			#_do_follow_mouse = true
+	#TODO: Make zoom lerp.
+	elif event.is_action_pressed(&"zoom_in", true): _cam.size = clampf(_cam.size - 2, 5, 30)
+	elif event.is_action_pressed(&"zoom_out", true): _cam.size = clampf(_cam.size + 2, 5, 30)
+	elif event.is_action_pressed(&"rotate_cw", true): self._target_rot -= deg_to_rad(45)
+	elif event.is_action_pressed(&"rotate_ccw", true): self._target_rot += deg_to_rad(45)
 	
