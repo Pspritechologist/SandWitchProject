@@ -21,8 +21,8 @@ outer_radius = 0.619
 rings = 8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6f66p"]
-height = 0.175781
-radius = 0.629883
+height = 0.285461
+radius = 0.505859
 
 [node name="RtsInterface" type="Control"]
 layout_mode = 3
@@ -131,10 +131,18 @@ mesh = SubResource("TorusMesh_hk1mu")
 skeleton = NodePath("../Camera3D")
 
 [node name="CursorSelectionBounds" type="Area3D" parent="RtsCamera/RtsCursor"]
-collision_layer = 16
+collision_layer = 0
 collision_mask = 16
+monitorable = false
+priority = 100
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RtsCamera/RtsCursor/CursorSelectionBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0548402, 0)
 shape = SubResource("CylinderShape3D_6f66p")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="RtsCamera/RtsCursor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3516, 0)
+
 [connection signal="unit_selected" from="UnitSelector" to="." method="_on_unit_selected"]
+[connection signal="area_entered" from="RtsCamera/RtsCursor/CursorSelectionBounds" to="RtsCamera" method="_on_hover_unit_start"]
+[connection signal="area_exited" from="RtsCamera/RtsCursor/CursorSelectionBounds" to="RtsCamera" method="_on_hover_unit_stop"]

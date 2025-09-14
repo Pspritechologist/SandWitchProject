@@ -1,9 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://5fnsoo8vcjv"]
+[gd_scene load_steps=15 format=3 uid="uid://5fnsoo8vcjv"]
 
 [ext_resource type="Script" uid="uid://ctss15jnlq4kx" path="res://rts/units/unit_charlie.gd" id="1_yx8kj"]
 [ext_resource type="ArrayMesh" uid="uid://chodtddryhaje" path="res://assets/models/fella_mesh.res" id="2_hk583"]
 [ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://utilities/hitbox_manager.tscn" id="2_vsgb3"]
+[ext_resource type="Shader" uid="uid://do0wf25apxbo4" path="res://rts/outline.gdshader" id="3_0it3d"]
 [ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://utilities/health_manager.gd" id="3_vsgb3"]
+[ext_resource type="Script" uid="uid://d3vp52gajqqyc" path="res://rts/unit_manager.gd" id="5_6acy6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yj2h2"]
+render_priority = -5
+shader = ExtResource("3_0it3d")
+shader_parameter/normal_threshold = 1.9
+shader_parameter/depth_threshold = 0.05
+shader_parameter/depth_artifact_correction_coef = 2.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vsgb3"]
+radius = 0.235786
+height = 1.88462
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1q0v7"]
+resource_local_to_scene = true
+albedo_color = Color(0.935003, 0.62561, 0.333961, 1)
+metallic = 0.71
+metallic_specular = 0.33
+roughness = 0.89
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vsgb3"]
 size = Vector3(0.282227, 0.324081, 0.214844)
@@ -19,22 +40,19 @@ radius = 0.074707
 height = 0.841972
 radius = 0.074707
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1q0v7"]
-albedo_color = Color(0.935003, 0.62561, 0.333961, 1)
-metallic = 0.71
-metallic_specular = 0.33
-roughness = 0.89
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vsgb3"]
-radius = 0.235786
-height = 1.88462
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6acy6"]
+height = 0.301819
+radius = 0.455078
 
 [node name="UnitCharlie" type="CharacterBody3D" node_paths=PackedStringArray("_hitbox_manager", "_health_manager")]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_yx8kj")
+_outline = SubResource("ShaderMaterial_yj2h2")
 _hitbox_manager = NodePath("HitboxManager")
 _health_manager = NodePath("HealthManager")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Speech" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02843, 0)
@@ -45,41 +63,64 @@ text = "Aggggh!"
 font_size = 140
 outline_size = 28
 
+[node name="Body" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.938655, 0)
+shape = SubResource("CapsuleShape3D_vsgb3")
+
+[node name="Mesh" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.938655, 0)
+mesh = ExtResource("2_hk583")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_1q0v7")
+
 [node name="HitboxManager" parent="." instance=ExtResource("2_vsgb3")]
 
-[node name="Torso2" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.699, 0.00206941)
+[node name="Head" type="CollisionShape3D" parent="HitboxManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00453281, 1.699, 0.00218027)
 shape = SubResource("BoxShape3D_vsgb3")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="Torso" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1844, 0.0117486)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00453281, 1.1844, 0.0118595)
 shape = SubResource("BoxShape3D_6acy6")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="ArmL" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.335465, 1.15654, 0.00649695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.330932, 1.15654, 0.00660781)
 shape = SubResource("CylinderShape3D_0it3d")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="ArmR" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.335, 1.157, 0.006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.339533, 1.157, 0.00611086)
 shape = SubResource("CylinderShape3D_0it3d")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="LegL" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.147, 0.418, 0.006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.142467, 0.418, 0.00611086)
 shape = SubResource("CylinderShape3D_yj2h2")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="LegR" type="CollisionShape3D" parent="HitboxManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.147, 0.417553, 0.006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.151533, 0.417553, 0.00611086)
 shape = SubResource("CylinderShape3D_yj2h2")
+debug_color = Color(0.898039, 0, 0.0745098, 0.552941)
 
 [node name="HealthManager" type="Node" parent="."]
 script = ExtResource("3_vsgb3")
 max_health = 240
 metadata/_custom_type_script = "uid://j3vifim8kqxs"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_hk583")
-surface_material_override/0 = SubResource("StandardMaterial3D_1q0v7")
+[node name="UnitManager" type="Area3D" parent="."]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_6acy6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.938655, 0)
-shape = SubResource("CapsuleShape3D_vsgb3")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UnitManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0675914, 0)
+shape = SubResource("CylinderShape3D_6acy6")
+debug_color = Color(0.673268, 0.436445, 0, 0.42)
+
+[connection signal="on_leave" from="UnitManager" to="." method="_on_leave"]
+[connection signal="on_mouseover" from="UnitManager" to="." method="_on_hover"]

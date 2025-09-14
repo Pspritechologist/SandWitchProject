@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj51aalk4jx75"]
+
+[ext_resource type="Texture2D" uid="uid://dxiey07uf4ecy" path="res://assets/textures/grungy_wood.png" id="3_2x1b0"]
+[ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://utilities/hitbox_manager.tscn" id="4_u4vr8"]
+[ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://utilities/health_manager.gd" id="5_mxji3"]
+[ext_resource type="Script" uid="uid://d3vp52gajqqyc" path="res://rts/unit_manager.gd" id="6_oby6j"]
+
+[sub_resource type="GDScript" id="GDScript_2x1b0"]
+script/source = "extends StaticBody3D
+
+@onready var _health: HealthManager = $HealthManager
+
+func _variantize() -> void:
+	#TODO: Wall variants.
+	pass
+	
+
+func _on_spawn() -> void:
+	#TODO: Access some kind of level manager and request it rebake the nav mesh.
+	pass
+	
+
+func _on_hit(damage: int) -> void:
+	_health.add_health(-damage)
+	
+
+func _on_died() -> void:
+	queue_free()
+	
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qhw74"]
+size = Vector3(3.5, 1.3, 0.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2x1b0"]
+size = Vector3(3.5, 1.3, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o80xx"]
+albedo_texture = ExtResource("3_2x1b0")
+uv1_scale = Vector3(0.142, 0.15, 0.142)
+uv1_triplanar = true
+texture_filter = 2
+
+[node name="UnitBlockade" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 5
+script = SubResource("GDScript_2x1b0")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_qhw74")
+debug_fill = false
+
+[node name="UnitManager" type="Area3D" parent="Collision"]
+unique_name_in_owner = true
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("6_oby6j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision/UnitManager"]
+shape = SubResource("BoxShape3D_qhw74")
+debug_fill = false
+
+[node name="HitboxManager" parent="Collision" instance=ExtResource("4_u4vr8")]
+
+[node name="Hitbox" type="CollisionShape3D" parent="Collision/HitboxManager"]
+shape = SubResource("BoxShape3D_qhw74")
+debug_fill = false
+
+[node name="Mesh" type="MeshInstance3D" parent="Collision"]
+mesh = SubResource("BoxMesh_2x1b0")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_o80xx")
+
+[node name="HealthManager" type="Node" parent="."]
+script = ExtResource("5_mxji3")
+max_health = 240
+metadata/_custom_type_script = "uid://j3vifim8kqxs"
+
+[connection signal="on_spawn" from="Collision/UnitManager" to="." method="_on_spawn"]
+[connection signal="variantize" from="Collision/UnitManager" to="." method="_variantize"]
+[connection signal="hit" from="Collision/HitboxManager" to="." method="_on_hit"]
+[connection signal="died" from="HealthManager" to="." method="_on_died"]

@@ -38,6 +38,10 @@ window/vsync/vsync_mode=0
 
 enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 
+[global_group]
+
+levelgeo="Geometry included in level navigation mesh baking."
+
 [input]
 
 forwards={
@@ -183,6 +187,12 @@ rotate_cw={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Object"
 3d_physics/layer_4="Hitbox"
+3d_physics/layer_5="UnitSelectBox"
+
+[navigation]
+
+3d/default_cell_size=0.15
+3d/default_cell_height=0.05
 
 [physics]
 

@@ -11,44 +11,48 @@ var _do_follow_mouse := true
 @onready var _target_rot := self.global_rotation.y
 @onready var _target_size := _cam.size
 
-## Spawns a unit at the cursor's location.
-## - [arg parent]: The Node the Unit will be parented to.
-## - [arg unit]: The unit to spawn. If the Unit's scene fails to instantiate, an error will be printed.
-## - [arg rotate]: Should the unit be rotated so it faces away from the camera.
-## - [arg offset]: An optional offset applied to the unit after after spawning it.
-## - [arg rot_offset]: An optional offset as a [Basis] applied to the Unit after spawning it.
+## Spawns a unit at the cursor's location.[br]
+## - [param parent]: The Node the Unit will be parented to.[br]
+## - [param unit]: The unit to spawn. If the Unit's scene fails to instantiate, an error will be printed.[br]
+## - [param rotate]: Should the unit be rotated so it faces away from the camera.[br]
+## - [param offset]: An optional offset applied to the unit after after spawning it.[br]
+## - [param rot_offset]: An optional offset as a [Basis] applied to the Unit after spawning it.
 ##   The Unit's rotation will be multiplied by the provided Basis after spawning.
-func spawn_unit(parent: Node, unit: UnitData, rotate: bool = true, offset: Vector3 = Vector3(), rot_offset: Basis = Basis()) -> void:
-	var unit_inst: Node3D = unit.unit_scene.instantiate()
-	if !unit_inst:
-		push_error("Failed to instantiate Unit: %s (%s)" % [unit.unit_name, unit.unit_scene.resource_path])
-		print_debug("A the root of a Unit's Scene must be a Node3D")
-		return
-		
+func spawn_unit(parent: Node, data: UnitData, rotate: bool = true, offset: Vector3 = Vector3(), rot_offset: Basis = Basis()) -> void:
+	var xform := Transform3D()
+	xform.origin = _cursor.global_position + offset
 	
-	parent.add_child(unit_inst)
+	# if rotate:
+	# 	var dir_to_cam := (self.global_position - xform.origin).normalized()
+	# 	var look_at := Vector3(dir_to_cam.x, 0, dir_to_cam.z).normalized()
+	# 	var up := Vector3.UP
+	# 	var right := up.cross(look_at).normalized()
+	# 	look_at = right.cross(up).normalized()
 	
-	unit_inst.global_position = _cursor.global_position
-	if rotate:
-		var cam := self.global_position
-		var curs := _cursor.global_position
-		cam.y = 0
-		curs.y = 0
-		var diff := cam - curs
-		unit_inst.look_at(diff * 100)
-		
+	xform.basis *= rot_offset
 	
-	unit_inst.position += offset
-	unit_inst.rotation *= rot_offset
+	return UnitManager.spawn_unit(parent, data, xform)
 	
 
 func set_cursor_color(color: Color) -> void:
 	_cursor.mesh.surface_get_material(0).albedo_color = color
 	
 
+func get_unit_at_cursor() -> UnitManager:
+	return _cursor_select.get_overlapping_areas().pop_back() as UnitManager
+	
+
 func set_cam_global_transform(new: Transform3D):
 	global_transform = new
 	_target_rot = global_rotation.y
+	
+
+func _on_hover_unit_start(unit_man: UnitManager):
+	unit_man.on_mouseover.emit()
+	
+
+func _on_hover_unit_stop(unit_man: UnitManager):
+	unit_man.on_leave.emit()
 	
 
 func _process(delta: float) -> void:
