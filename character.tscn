@@ -28,7 +28,7 @@ height = 1.5
 radius = 0.51
 height = 2.1
 
-[node name="CharacterBody3D" type="CharacterBody3DExtension" node_paths=PackedStringArray("crouch_manager", "hitbox_manager", "health_manager", "ui")]
+[node name="CharacterBody3D" type="CharacterBody3DExtension" node_paths=PackedStringArray("crouch_manager", "hitbox_manager", "health_manager", "ui") groups=["player"]]
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_glpr6")

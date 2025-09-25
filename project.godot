@@ -15,8 +15,14 @@ run/main_scene="uid://cpemfc0rdiy6m"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*res://utilities/globals.gd"
+
 [debug]
 
+gdscript/warnings/shadowed_variable=0
+gdscript/warnings/shadowed_variable_base_class=0
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_call_argument=1
@@ -41,6 +47,7 @@ enabled=PackedStringArray("res://addons/func_godot/plugin.cfg")
 [global_group]
 
 levelgeo="Geometry included in level navigation mesh baking."
+player="Group for locating the FPS player character."
 
 [input]
 
