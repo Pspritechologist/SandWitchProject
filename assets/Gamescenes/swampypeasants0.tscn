@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cu1y2h1gsbk6x"]
 
 [ext_resource type="PackedScene" uid="uid://vrhfvn7c57ch" path="res://assets/maps/swampypeasants.map" id="1_pdplg"]
-[ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://character.tscn" id="2_lar4x"]
+[ext_resource type="PackedScene" uid="uid://b5odt3mvxcsai" path="res://scenes/fps_character.tscn" id="2_lar4x"]
 [ext_resource type="PackedScene" uid="uid://76hvc2tcw2pm" path="res://assets/maps/swp_jungle.map" id="3_lar4x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_57qqc"]

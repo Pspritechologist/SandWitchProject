@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b5odt3mvxcsai"]
 
-[ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://character_temp.gd" id="1_glpr6"]
-[ext_resource type="Script" uid="uid://cds27r3l7mp4l" path="res://crouch_manager.gd" id="2_pjt0s"]
+[ext_resource type="Script" uid="uid://b8d4i2p6wsak8" path="res://src/fps_character/character_temp.gd" id="1_glpr6"]
+[ext_resource type="Script" uid="uid://cds27r3l7mp4l" path="res://src/fps_character/crouch_manager.gd" id="2_pjt0s"]
 [ext_resource type="Script" uid="uid://rekdw0dmvm5u" path="res://fps/gun_manager.gd" id="3_wa5vi"]
 [ext_resource type="PackedScene" uid="uid://db4hghak4a0rd" path="res://utilities/hitbox_manager.tscn" id="4_px5sl"]
 [ext_resource type="Script" uid="uid://j3vifim8kqxs" path="res://utilities/health_manager.gd" id="5_0qfo5"]

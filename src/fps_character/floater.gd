@@ -1,4 +1,4 @@
-extends "res://character_temp.gd"
+extends "./character_temp.gd"
 
 @onready var float_area := %FloatArea
 @onready var stand_area := %StandArea
